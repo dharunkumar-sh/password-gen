@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 180 100% 98%;
+
+    --card: 222 47% 10%;
+    --card-foreground: 180 100% 98%;
+
+    --popover: 222 47% 10%;
+    --popover-foreground: 180 100% 98%;
+
+    --primary: 174 72% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 15%;
+    --secondary-foreground: 180 100% 98%;
+
+    --muted: 222 30% 18%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 174 72% 40%;
+    --accent-foreground: 180 100% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 180 100% 98%;
+
+    --success: 142 72% 45%;
+    --success-foreground: 222 47% 6%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 6%;
+
+    --border: 222 30% 20%;
+    --input: 222 30% 18%;
+    --ring: 174 72% 50%;
+
+    --radius: 1rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(174, 72%, 50%), hsl(190, 80%, 45%));
+    --gradient-dark: linear-gradient(180deg, hsl(222, 47%, 8%), hsl(222, 47%, 4%));
+    --gradient-card: linear-gradient(145deg, hsl(222, 47%, 12%), hsl(222, 47%, 8%));
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(174, 72%, 50%, 0.15), transparent 50%);
+
+    --shadow-glow: 0 0 40px hsl(174, 72%, 50%, 0.2);
+    --shadow-card: 0 25px 50px -12px hsl(222, 47%, 2%, 0.8);
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 180 100% 98%;
+    --sidebar-primary: 174 72% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 15%;
+    --sidebar-accent-foreground: 180 100% 98%;
+    --sidebar-border: 222 30% 20%;
+    --sidebar-ring: 174 72% 50%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 180 100% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    user-select: none
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-display);
+    background: var(--gradient-dark);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .password-display {
+    @apply font-mono text-2xl md:text-3xl tracking-wider;
+    letter-spacing: 0.15em;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsl(174, 72%, 50%, 0.2);
+    }
+    to {
+      box-shadow: 0 0 40px hsl(174, 72%, 50%, 0.4);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent, hsl(174, 72%, 50%, 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
