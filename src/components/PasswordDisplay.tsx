@@ -1,16 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, Eye, EyeOff, RefreshCw, QrCode } from "lucide-react";
+import { Copy, Check, Eye, EyeOff, RefreshCw } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import QRCodeLib from "qrcode";
 
 interface PasswordDisplayProps {
   password: string;
@@ -25,23 +16,6 @@ const PasswordDisplay = ({
 }: PasswordDisplayProps) => {
   const [copied, setCopied] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    if (password && canvasRef.current) {
-      QRCodeLib.toCanvas(canvasRef.current, password, {
-        width: 256,
-        margin: 2,
-        color: {
-          dark: "#000000",
-          light: "#FFFFFF",
-        },
-      }).catch(() => {
-        // Silently handle QR code generation errors
-      });
-    }
-  }, [password]);
 
   const handleCopy = async () => {
     if (!password) {
@@ -132,36 +106,6 @@ const PasswordDisplay = ({
               <RefreshCw className="h-4 w-4" />
               Regenerate
             </Button>
-          )}
-
-          {password && (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="flex-1 min-w-[140px] max-w-[200px]"
-                >
-                  <QrCode className="h-4 w-4" />
-                  QR Code
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Password QR Code</DialogTitle>
-                  <DialogDescription>
-                    Scan this QR code to share the password with nearby devices
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="flex flex-col items-center gap-4 p-4">
-                  <div className="bg-white p-4 rounded-lg">
-                    <canvas ref={canvasRef} />
-                  </div>
-                  <p className="text-xs text-muted-foreground text-center">
-                    Keep this QR code private as it contains your password
-                  </p>
-                </div>
-              </DialogContent>
-            </Dialog>
           )}
         </div>
       </div>
