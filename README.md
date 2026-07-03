@@ -7,69 +7,126 @@
 
 </div>
 
-<Description>  
-CipherKey is a modern, open‑source password manager built with **React**, **TypeScript**, **ShadCN‑UI**, and **TailwindCSS**. It offers both automatic and manual password generation, batch creation of passphrases, real‑time strength indicators, and a history of generated credentials—all stored locally via `localStorage`. The UI is fully responsive and follows accessible design principles, making it ideal for individuals and teams seeking a self‑hosted, privacy‑first solution.  
+## Description
+CipherKey is a lightweight, open‑source password manager built with **React**, **TypeScript**, and **Tailwind CSS**. It stores credentials locally using the Web Storage API, offers both manual and automatic generation modes, and provides a modern, accessible UI powered by **ShadCN UI** components. Ideal for individuals and teams who want full control over their password data without relying on cloud services.
 
-<InteractiveTOC>  
+## Table of Contents
+<details><summary>Click to expand Table of Contents</summary>
 
-[## Hero](#hero)  
-[## Description](#description)  
-[## Features](#features)  
-[## TechStack](#techstack)  
-[## GettingStarted](#gettingstarted)  
-[## Usage](#usage)  
-[## FolderStructure](#folderstructure)  
-[## Contributing](#contributing)  
-[## License](#license)  
-[## Acknowledgements](#acknowledgements)  
-[## ArchitectureDiagram](#architecturediagram)  
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-<Features>  
+</details>
 
-- 🔐 **Automatic & Manual Modes** – One‑click generation or fine‑grained manual control.  
-- 📦 **Batch Generation** – Produce multiple passwords/passphrases in a single operation.  
-- 📊 **Password Strength Indicator** – Visual entropy gauge for instant feedback.  
-- 📁 **Password History & Templates** – Save, retrieve, and reuse credentials or predefined patterns.  
-- 🎨 **ShadCN‑UI + TailwindCSS** – Modern, accessible, and fully responsive UI components.  
-- 🪝 **Reusable Hooks & Utilities** – `src/lib/passwordUtils.ts` and `src/lib/utils.ts` provide entropy calculation, storage helpers, and validation logic.  
+## Features
+- **🔐 Automatic Mode** – Auto‑generate strong passwords using built‑in algorithms.  
+- **🛠️ Manual Mode** – Create custom passwords with full control over length, character sets, and patterns.  
+- **📦 Batch Generation** – Generate multiple passwords at once for bulk operations.  
+- **🗣️ Passphrase Support** – Generate memorable passphrases with custom word lists.  
+- **📊 Strength Indicator** – Real‑time visual feedback on password strength.  
+- **📜 Password History** – View, edit, and delete saved credentials securely.  
+- **🎨 Templates** – Pre‑defined patterns for common services (e.g., email, social media).  
+- **📱 Responsive UI** – Fully responsive design using ShadCN UI components and Tailwind CSS.  
 
-<TechStack>  
-
+## Tech Stack
 - **Language:** TypeScript  
-- **Framework:** React 18  
-- **UI Library:** ShadCN‑UI (built on Radix UI)  
-- **Styling:** TailwindCSS 3  
-- **Build Tool:** Vite  
-- **State Management:** React Context (via Radix components)  
-- **Testing:** Not configured (future‑ready)  
+- **Framework:** React 18 + Vite  
+- **UI Library:** ShadCN UI components (built on Radix UI)  
+- **Styling:** Tailwind CSS 3.x  
+- **State Management:** React Context (lightweight)  
+- **Storage:** Browser localStorage (client‑side)  
+- **Dependencies:** @radix-ui/react-* components, @hookform/resolvers, etc.  
 
-<GettingStarted>  
+## Getting Started
+### Prerequisites
+- Node.js >= 18.x  
+- npm or yarn  
 
-**Prerequisites**  
-- Node.js ≥ 18.x  
-- npm ≥ 9.x  
-
-**Installation**  
-
+### Installation
 ```bash
 git clone https://github.com/dharunkumar-sh/password-gen.git
 cd password-gen
-npm install
+npm install   # or `yarn install`
 ```
 
-**Quick Start**  
-
+### Quick Start
 ```bash
-npm run dev   # starts the dev server (http://localhost:5173)
+npm run dev   # starts the development server (http://localhost:5173)
 ```
 
-Open the app in your browser and begin generating passwords instantly.  
-
-<Usage>  
-
+## Usage
+### Generating a Password (client‑side example)
 ```tsx
-import { PasswordGenerator } from "@/components/PasswordGenerator";
+import { PasswordGenerator } from '@/components/PasswordGenerator';
 
-export default function App() {
+function App() {
   return (
-    <div class
+    <div className="p-6">
+      <PasswordGenerator
+        length={16}
+        includeNumbers={true}
+        includeSymbols={true}
+        onGenerate={(pwd) => console.log('Generated password:', pwd)}
+      />
+    </div>
+  );
+}
+```
+
+### Manual Mode
+```tsx
+import { ManualMode } from '@/components/ManualMode';
+
+function App() {
+  return <ManualMode onSubmit={(data) => alert('Saved!')} />;
+}
+```
+
+## Folder Structure
+```tree
+src/
+├─ components/          # Reusable UI components
+│   ├─ AutomaticMode.tsx
+│   ├─ BatchGenerator.tsx
+│   ├─ ManualMode.tsx
+│   └─ ... (other components)
+├─ hooks/               # Custom React hooks
+│   └─ use-mobile.tsx
+├─ lib/                 # Utility functions
+│   ├─ passwordUtils.ts
+│   └─ utils.ts
+├─ pages/               # Page-level components
+│   ├─ Index.tsx
+│   └─ NotFound.tsx
+├─ App.tsx
+├─ main.tsx
+└─ ... (config files)
+```
+
+## Contributing
+1. Fork the repository.  
+2. Create a new branch for your feature/`fix`.  
+3. Install dependencies and run `npm run dev` to verify locally.  
+4. Write clear, typed code and add tests where applicable.  
+5. Submit a Pull Request with a descriptive title and summary.  
+
+Please follow the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md) and ensure all PRs pass linting (`npm run lint`) and type checking (`npm run type-check`).
+
+## License
+This project is provided **as‑is** without an explicit license. All rights reserved by the author.
+
+## Acknowledgements
+- **React** and **Vite** for a fast development experience.  
+- **ShadCN UI** for beautiful, accessible components.  
+- **Tailwind CSS** for utility‑first styling.  
+- **Radix UI** for low‑level, composable primitives.  
+
+---  
+
+*Built with ❤️ by the CipherKey community.*
